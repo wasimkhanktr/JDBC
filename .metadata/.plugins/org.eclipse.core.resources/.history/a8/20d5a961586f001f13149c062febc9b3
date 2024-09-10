@@ -1,0 +1,76 @@
+package UserInputJDBC;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Scanner;
+
+public class CreateTable {
+
+    public static void main(String[] args) {
+        Connection con = null;
+        Statement stmt = null;
+        Scanner sc = new Scanner(System.in);
+
+        try {
+            // Getting the table name from user input
+            System.out.println("Enter the name of the table you want to create: ");
+            String tableName = sc.nextLine();
+
+            // Getting the number of columns
+            System.out.println("Enter the number of columns: ");
+            int columnCount = sc.nextInt();
+            sc.nextLine();  // Consume newline
+
+            // Building the SQL query dynamically
+            StringBuilder sql = new StringBuilder("CREATE TABLE IF NOT EXISTS " + tableName + " (");
+
+            // Looping to get column details from the user
+            for (int i = 1; i <= columnCount; i++) {
+                System.out.println("Enter the name of column " + i + ": ");
+                String columnName = sc.nextLine();
+
+                System.out.println("Enter the data type for column " + i + " (e.g., VARCHAR, INT): ");
+                String dataType = sc.nextLine();
+
+                System.out.println("Enter the size/constraint for column " + i + " (e.g., 255 for VARCHAR, or leave blank for INT): ");
+                String size = sc.nextLine();
+
+                // Appending column details to the SQL query
+                sql.append(columnName).append(" ").append(dataType);
+
+                if (!size.isBlank()) {
+                    sql.append("(").append(size).append(")");
+                }
+
+                if (i != columnCount) {
+                    sql.append(", ");
+                }
+            }
+
+            sql.append(");");
+
+            // Establishing the connection
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydbms", "root", "root");
+
+            // Creating a Statement object
+            stmt = con.createStatement();
+
+            // Executing the query
+            stmt.executeUpdate(sql.toString());
+            System.out.println("Table '" + tableName + "' created successfully with " + columnCount + " columns.");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (stmt != null) stmt.close();
+                if (con != null) con.close();
+                sc.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+}

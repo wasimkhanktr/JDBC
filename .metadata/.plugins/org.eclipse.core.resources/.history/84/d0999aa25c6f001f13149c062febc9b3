@@ -1,0 +1,64 @@
+package UserInputJDBC;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Scanner;
+
+public class CreateTable {
+
+	public static void main(String[] args) throws SQLException 
+	{
+		Scanner sc=new Scanner(System.in);
+		// Establishing the connection
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydbms", "root", "root");
+
+        // Creating a Statement object
+        Statement stmt = con.createStatement();
+
+        System.out.println("Enter Your Table name : ");
+        String table=sc.next();
+        
+        String sql="CREATE TABLE "+table+ "(";
+        
+        System.out.println("How Many Coloum you want to add :");
+        
+        int n=sc.nextInt();
+        
+        
+        
+        while(n-->0)
+        {
+        	System.out.println("Enter Coloum name like coloumName INT/VARCHAR(50) key-PRIMARY/UNIQUE/AUTO INCREMENT");
+        	sc.next();
+        	String col=sc.nextLine();
+        	
+        	sql=sql+col;
+        	
+        }
+        sql=sql+");";
+        
+//        // SQL query to create a table
+//        String sql = "CREATE TABLE EMP ("
+//                    + "empid INT PRIMARY, "
+//                    + "ename VARCHAR(50), "
+//                    + "job VARCHAR(50) ,"
+//                    + "mgr VARCHAR(50), "
+//                    + "hiredate DATE,"
+//                    + "sal INT, "
+//                    + "comm INT, "
+//                    + "deptno INT"
+//                    + ")";
+        
+        // Executing the query
+        stmt.executeUpdate(sql);
+
+        System.out.println("Table created successfully...");
+        
+        con.close();
+		
+
+	}
+
+}

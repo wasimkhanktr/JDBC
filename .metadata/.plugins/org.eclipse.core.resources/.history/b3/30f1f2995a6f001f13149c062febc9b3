@@ -1,0 +1,40 @@
+package UserInputJDBC;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class CreateTable {
+
+	public static void main(String[] args) throws SQLException 
+	{
+		// Establishing the connection
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydbms", "root", "root");
+
+        // Creating a Statement object
+        Statement stmt = con.createStatement();
+
+        // SQL query to create a table
+        String sql = "CREATE TABLE EMP ("
+                    + "empid INT PRIMARY, "
+                    + "ename VARCHAR(50), "
+                    + "job VARCHAR(50) ,"
+                    + "mgr VARCHAR(50), "
+                    + "hiredate DATE,"
+                    + "sal INT, "
+                    + "comm INT, "
+                    + "deptno INT"
+                    + ")";
+        
+        // Executing the query
+        stmt.executeUpdate(sql);
+
+        System.out.println("Table created successfully...");
+        
+        con.close();
+		
+
+	}
+
+}
