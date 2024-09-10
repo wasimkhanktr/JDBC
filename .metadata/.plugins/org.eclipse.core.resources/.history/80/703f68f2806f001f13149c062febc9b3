@@ -9,7 +9,10 @@ import java.sql.Statement;
 public class DisplayData {
 
 	public static void main(String[] args) throws SQLException, ClassNotFoundException {
+		 // Establishing the connection
 		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydbms", "root", "root");
+
+        // Creating a Statement object
 		Statement stmt = con.createStatement();
 
         // SQL query to retrieve data from the Students table
