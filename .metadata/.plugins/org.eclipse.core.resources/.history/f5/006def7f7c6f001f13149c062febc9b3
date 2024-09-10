@@ -1,0 +1,12 @@
+package UserInputJDBC;
+
+import java.sql.DriverManager;
+
+public class DisplayData {
+
+	public static void main(String[] args) {
+		Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3606/mydbms","root","root")
+
+	}
+
+}
