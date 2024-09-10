@@ -1,0 +1,37 @@
+package UserInputJDBC;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.Scanner;
+
+public class DeleteData {
+
+	public static void main(String[] args) throws SQLException {
+		s
+		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3606/mydbms","root","root");
+		String sql="";
+		Scanner sc=new Scanner(System.in);
+		
+		System.out.println("Delete by id press 1 \nDelete by name press 1 \n");
+		int n=sc.nextInt();
+		if(n==1)
+		{
+			System.out.println("Enter an id : ");
+			int id = sc.nextInt();
+			sql="DELETE FROM STUDENT WHERE ID ="+id;
+		}
+		else if(n==2)
+		{
+			System.out.println("Enter a name : ");
+			String name= sc.nextLine();
+			sql="DELETE FROM STUDENT WHERE ID ="+name+";";
+		}
+		
+		PreparedStatement ps=con.prepareStatement(sql);
+		
+
+	}
+
+}
