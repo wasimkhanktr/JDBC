@@ -13,6 +13,9 @@ public class CreateDB {
         PreparedStatement pstmt = null;
         Scanner sc = new Scanner(System.in);
 
+            // Load the MySQL JDBC driver (optional in newer versions, but good practice)
+//            Class.forName("com.mysql.cj.jdbc.Driver");
+
             // Getting the database name from user input
             System.out.println("Enter the name of the database you want to create: ");
             String dbName = sc.nextLine();
