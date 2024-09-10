@@ -13,8 +13,9 @@ public class CreateDB {
         PreparedStatement pstmt = null;
         Scanner sc = new Scanner(System.in);
 
+        try {
             // Load the MySQL JDBC driver (optional in newer versions, but good practice)
-//            Class.forName("com.mysql.cj.jdbc.Driver");
+            Class.forName("com.mysql.cj.jdbc.Driver");
 
             // Getting the database name from user input
             System.out.println("Enter the name of the database you want to create: ");
@@ -33,6 +34,15 @@ public class CreateDB {
             pstmt.executeUpdate();
             System.out.println("Database '" + dbName + "' created successfully...");
 
+        } catch (SQLException e) {
+            throw new SQLException("SQL Exception occurred: " + e.getMessage(), e);
+        } catch (ClassNotFoundException e) {
+            throw new ClassNotFoundException("JDBC Driver not found: " + e.getMessage(), e);
+        } finally {
+            // Closing resources
+            if (pstmt != null) pstmt.close();
+            if (con != null) con.close();
             sc.close();
+        }
     }
 }
